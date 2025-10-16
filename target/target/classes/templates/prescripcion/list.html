@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{prescripcion.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{prescripcion.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/prescripcions/add}" class="btn btn-primary ms-2">[[#{prescripcion.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${prescripcions.empty}">[[#{prescripcion.list.empty}]]</div>
+            <div th:if="${!prescripcions.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{prescripcion.idPrescripcion.label}]]</th>
+                            <th scope="col">[[#{prescripcion.dosis.label}]]</th>
+                            <th scope="col">[[#{prescripcion.frecuencia.label}]]</th>
+                            <th scope="col">[[#{prescripcion.fechaInicio.label}]]</th>
+                            <th scope="col">[[#{prescripcion.fechaFin.label}]]</th>
+                            <th scope="col">[[#{prescripcion.cita.label}]]</th>
+                            <th scope="col">[[#{prescripcion.medicamento.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="prescripcion : ${prescripcions}">
+                            <td>[[${prescripcion.idPrescripcion}]]</td>
+                            <td>[[${prescripcion.dosis}]]</td>
+                            <td>[[${prescripcion.frecuencia}]]</td>
+                            <td>[[${prescripcion.fechaInicio}]]</td>
+                            <td>[[${prescripcion.fechaFin}]]</td>
+                            <td>[[${prescripcion.cita}]]</td>
+                            <td>[[${prescripcion.medicamento}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/prescripcions/edit/{idPrescripcion}(idPrescripcion=${prescripcion.idPrescripcion})}" class="btn btn-sm btn-secondary">[[#{prescripcion.list.edit}]]</a>
+                                    <form th:action="@{/prescripcions/delete/{idPrescripcion}(idPrescripcion=${prescripcion.idPrescripcion})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{prescripcion.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

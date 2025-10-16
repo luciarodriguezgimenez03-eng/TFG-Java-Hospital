@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{cita.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{cita.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/citas/add}" class="btn btn-primary ms-2">[[#{cita.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${citas.empty}">[[#{cita.list.empty}]]</div>
+            <div th:if="${!citas.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{cita.idCita.label}]]</th>
+                            <th scope="col">[[#{cita.fechaCita.label}]]</th>
+                            <th scope="col">[[#{cita.horaCita.label}]]</th>
+                            <th scope="col">[[#{cita.paciente.label}]]</th>
+                            <th scope="col">[[#{cita.empleado.label}]]</th>
+                            <th scope="col">[[#{cita.sala.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cita : ${citas}">
+                            <td>[[${cita.idCita}]]</td>
+                            <td>[[${cita.fechaCita}]]</td>
+                            <td>[[${cita.horaCita}]]</td>
+                            <td>[[${cita.paciente}]]</td>
+                            <td>[[${cita.empleado}]]</td>
+                            <td>[[${cita.sala}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/citas/edit/{idCita}(idCita=${cita.idCita})}" class="btn btn-sm btn-secondary">[[#{cita.list.edit}]]</a>
+                                    <form th:action="@{/citas/delete/{idCita}(idCita=${cita.idCita})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{cita.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

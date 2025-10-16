@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{prescripcion.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{prescripcion.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/prescripcions}" class="btn btn-secondary">[[#{prescripcion.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('prescripcion')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='idPrescripcion', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='dosis', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='frecuencia', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='fechaInicio', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='fechaFin', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='instrucciones', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='cita', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='prescripcion', field='medicamento', type='select')}" />
+                <input type="submit" th:value="#{prescripcion.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

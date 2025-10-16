@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Dashboard</title>
+    <link rel="stylesheet" href="css/principal.css">
+</head>
+<body>
+<header>
+    <p id="hospitalName" class="hospital-name">HOSPITAL MENDOZA</p> <!-- Añadido id -->
+    <nav>
+        <ul>
+            <li><a th:href="@{/prueba1}" class="login-link" id="LoginIndex">INICIAR SESION</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="main-content">
+    <button id="btnAjustes" class="btn">Ajustes</button>
+    <a th:href="@{/info}">
+        <button id="infoHospitalBtn" class="btn-hospital-info">Información del Hospital</button> <!-- Añadido id -->
+    </a>
+    <div id="modalAjustes" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="formIdioma">
+                <h2 id="modalTitle">Selecciona un idioma</h2>
+                <select id="idioma" name="idioma">
+                    <option value="espanol">Español</option>
+                    <option value="ingles">Inglés</option>
+                    <option value="rumano">Rumano</option>
+                </select>
+                <br><br>
+                <button type="submit" id="saveButton">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="empleados-btn-container">
+    <a th:href="@{/log}" id="EmpleYNBtn" class="empleados-btn">¿Eres un Empleado?</a>
+</div>
+
+<script src="js/traductorIndex.js"></script>
+</body>
+</html>
