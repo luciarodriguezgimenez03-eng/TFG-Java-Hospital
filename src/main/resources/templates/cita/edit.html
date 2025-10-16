@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{cita.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{cita.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/citas}" class="btn btn-secondary">[[#{cita.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('cita')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='idCita', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='descripcion', required=true, type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='fechaCita', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='horaCita', required=true, inputClass='js-timepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='paciente', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='empleado', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='cita', field='sala', type='select')}" />
+                <input type="submit" th:value="#{cita.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

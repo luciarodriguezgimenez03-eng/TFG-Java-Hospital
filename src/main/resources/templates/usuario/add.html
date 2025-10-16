@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{usuario.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{usuario.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/usuarios}" class="btn btn-secondary">[[#{usuario.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('usuario')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='dni', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='nombre', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='apellido', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='email', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='contraseAHash', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='urlImagen')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='telefono', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='direccion', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='fechaNacimiento', required=true, inputClass='js-datepicker')}" />
+                <label for="genero">Género</label>
+                <select id="genero" name="genero" class="form-control" >
+                    <option value="">Seleccione un género...</option>
+                    <option th:each="genero : ${todosLosGeneros}"
+                            th:value="${genero}"
+                            th:text="${genero}">Ejemplo Género</option>
+                </select>
+
+                <!-- Campo Desplegable para Tipo de Sangre -->
+                <label for="tipoSangre">Tipo de Sangre</label>
+                <select id="tipoSangre" name="tipoSangre" class="form-control">
+                    <option value="">Seleccione un tipo de sangre...</option>
+                    <option th:each="tipo : ${todosLosTiposDeSangre}"
+                            th:value="${tipo}"
+                            th:text="${tipo}">Ejemplo Tipo</option>
+                </select>
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='alergias')}" />
+                <label for="fechaCreacion">Fecha de Creación</label>
+                <input type="text" id="fechaCreacion" name="fechaCreacion"
+                       th:value="${fechaActual}" readonly class="form-control" />
+
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='fechaModificacion')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='usuariosRoleRoles', type='multiselect')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='usuario', field='usuariosEspecialidadeEspecialidades', type='multiselect')}" />
+                <input type="submit" th:value="#{usuario.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{especialidad.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{especialidad.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/especialidads/add}" class="btn btn-primary ms-2">[[#{especialidad.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${especialidads.empty}">[[#{especialidad.list.empty}]]</div>
+            <div th:if="${!especialidads.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{especialidad.idEspecialidad.label}]]</th>
+                            <th scope="col">[[#{especialidad.nombreEspecialidad.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="especialidad : ${especialidads}">
+                            <td>[[${especialidad.idEspecialidad}]]</td>
+                            <td>[[${especialidad.nombreEspecialidad}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/especialidads/edit/{idEspecialidad}(idEspecialidad=${especialidad.idEspecialidad})}" class="btn btn-sm btn-secondary">[[#{especialidad.list.edit}]]</a>
+                                    <form th:action="@{/especialidads/delete/{idEspecialidad}(idEspecialidad=${especialidad.idEspecialidad})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{especialidad.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
